@@ -157,7 +157,9 @@ function App() {
                   <Input id="estadoCivil" />
                 </Select>
               </Box>
-              <Box w="100%">
+            </HStack>
+            <HStack>
+            <Box w="100%">
                 <FormLabel htmlFor="paisNascimento">
                   País de Nascimento
                 </FormLabel>
@@ -345,6 +347,7 @@ function App() {
                 <Input id="pisPasep" type="number" />
               </Box>
             </HStack>
+
             <Box position="relative" padding="10">
               <Divider />
               <AbsoluteCenter bg="white" px="4">
@@ -353,6 +356,7 @@ function App() {
                 </Heading>
               </AbsoluteCenter>
             </Box>
+
             <HStack spacing="4">
               <Box>
                 <FormLabel htmlFor="funcao">Função</FormLabel>
@@ -376,8 +380,20 @@ function App() {
                 </Select>
               </Box>
             </HStack>
-            ANEXOS
-            <Divider orientation="horizontal" />
+           
+            <Box position="relative" padding="10">
+              <Divider />
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
+                  Anexos
+                </Heading>
+              </AbsoluteCenter>
+            </Box>
+
+            <input type="file" />
+            <input type="file" />
+            <input type="file" />
+
             <HStack justify="center">
               <Button
                 w={240}
