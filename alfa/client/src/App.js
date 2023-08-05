@@ -13,6 +13,7 @@ import {
   RadioGroup,
   Radio,
   Button,
+  ButtonGroup,
   Divider,
   Select,
   Heading,
@@ -20,6 +21,7 @@ import {
   Stack,
   AbsoluteCenter,
   Textarea,
+
 } from "@chakra-ui/react";
 function App() {
   const [funcoes, setFuncoes] = useState([]);
@@ -389,7 +391,20 @@ function App() {
                 </Select>
               </Box>
             </HStack>
-            ANEXOS
+            <Box position="relative" padding="10">
+              <Divider />
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
+                  Anexos
+                </Heading>
+              </AbsoluteCenter>
+            </Box>
+            <input type="file"/>
+            <input type="file"/>
+            <input type="file"/>
+            
+            <Button colorScheme='blue'>Button</Button>
+
             <Divider orientation="horizontal" />
             <HStack justify="center">
               <Button
