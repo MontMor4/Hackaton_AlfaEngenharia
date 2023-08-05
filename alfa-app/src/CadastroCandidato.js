@@ -15,6 +15,7 @@ import {
   Text,
   Stack,
   AbsoluteCenter,
+  Textarea,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -31,7 +32,7 @@ function App() {
       <Center
         as="header"
         h={150}
-        bg="teal.500"
+        bg="#1e3552"
         color="white"
         fontWeight="bold"
         fontSize="4xl"
@@ -56,16 +57,14 @@ function App() {
           boxShadow="0 1px 2px #ccc"
         >
           <FormControl display="flex" flexDir="column" gap="4">
-
-          <Box position='relative' padding='10'>
-            <Divider />
-            <AbsoluteCenter bg='white' px='4'>
-              <Heading as='h2' size='lg'>
-                Pessoal
-              </Heading>
-            </AbsoluteCenter>
-          </Box>
-
+            <Box position="relative" padding="10">
+              <Divider />
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
+                  Pessoal
+                </Heading>
+              </AbsoluteCenter>
+            </Box>
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="nome">
@@ -132,16 +131,14 @@ function App() {
                 </Select>
               </Box>
             </HStack>
-
-            <Box position='relative' padding='10'>
+            <Box position="relative" padding="10">
               <Divider />
-              <AbsoluteCenter bg='white' px='4'>
-                <Heading as='h2' size='lg'>
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
                   Nascimento
                 </Heading>
               </AbsoluteCenter>
             </Box>
-
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="dataNascimento">
@@ -188,16 +185,14 @@ function App() {
                 <Input id="cidadeNascimento" />
               </Box>
             </HStack>
-
-            <Box position='relative' padding='10'>
+            <Box position="relative" padding="10">
               <Divider />
-              <AbsoluteCenter bg='white' px='4'>
-                <Heading as='h2' size='lg'>
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
                   Tamanhos
                 </Heading>
               </AbsoluteCenter>
             </Box>
-
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="numeroBota">Número Bota</FormLabel>
@@ -212,16 +207,14 @@ function App() {
                 <Input placeholder="Ex: G" id="numeroBlusa" />
               </Box>
             </HStack>
-
-            <Box position='relative' padding='10'>
+            <Box position="relative" padding="10">
               <Divider />
-              <AbsoluteCenter bg='white' px='4'>
-                <Heading as='h2' size='lg'>
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
                   Contato
                 </Heading>
               </AbsoluteCenter>
             </Box>
-
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="telefone">Telefone</FormLabel>
@@ -236,16 +229,14 @@ function App() {
                 <Input placeholder="email@email.com" id="email" />
               </Box>
             </HStack>
-
-            <Box position='relative' padding='10'>
+            <Box position="relative" padding="10">
               <Divider />
-              <AbsoluteCenter bg='white' px='4'>
-                <Heading as='h2' size='lg'>
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
                   Endereço
                 </Heading>
               </AbsoluteCenter>
             </Box>
-
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="cep">CEP</FormLabel>
@@ -283,8 +274,10 @@ function App() {
               </Box>
             </HStack>
             <HStack>
-            <Box w="100%">
-                <FormLabel htmlFor="enderecoResidencial">Endereço Residencial</FormLabel>
+              <Box w="100%">
+                <FormLabel htmlFor="enderecoResidencial">
+                  Endereço Residencial
+                </FormLabel>
                 <Input id="enderecoResidencial" />
               </Box>
             </HStack>
@@ -298,16 +291,14 @@ function App() {
                 <Input id="complemento" />
               </Box>
             </HStack>
-
-            <Box position='relative' padding='10'>
+            <Box position="relative" padding="10">
               <Divider />
-              <AbsoluteCenter bg='white' px='4'>
-                <Heading as='h2' size='lg'>
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
                   Documentos
                 </Heading>
               </AbsoluteCenter>
             </Box>
-
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="rg">RG</FormLabel>
@@ -315,7 +306,7 @@ function App() {
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="orgaoEmissor">Órgão Emissor</FormLabel>
-                <Input id="orgaoEmissor"/>
+                <Input id="orgaoEmissor" />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="estadoEmissor">Estado Emissor</FormLabel>
@@ -324,7 +315,7 @@ function App() {
                   <option>RJ</option>
                   <option>SP</option>
                   <option>MG</option>
-                  <Input id="estadoEmissor"/>
+                  <Input id="estadoEmissor" />
                 </Select>
               </Box>
             </HStack>
@@ -336,46 +327,44 @@ function App() {
                   <option>Rio de Janeiro</option>
                   <option>São Paulo</option>
                   <option>Vitória</option>
-                  <Input id="cidadeEmissora"/>
+                  <Input id="cidadeEmissora" />
                 </Select>
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="dataExpedicao">Data de Expedição</FormLabel>
-                <Input id="cidadeEmissora" type="date"/>
+                <Input id="cidadeEmissora" type="date" />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="cpf">CPF</FormLabel>
-                <Input id="cpf" type="number"/>
+                <Input id="cpf" type="number" />
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box>
                 <FormLabel htmlFor="pisPasep">PIS/PASEP</FormLabel>
-                <Input id="pisPasep" type="number"/>
+                <Input id="pisPasep" type="number" />
               </Box>
             </HStack>
-
-            <Box position='relative' padding='10'>
+            <Box position="relative" padding="10">
               <Divider />
-              <AbsoluteCenter bg='white' px='4'>
-                <Heading as='h2' size='lg'>
+              <AbsoluteCenter bg="white" px="4">
+                <Heading as="h2" size="lg">
                   Outros
                 </Heading>
               </AbsoluteCenter>
             </Box>
-
             <HStack spacing="4">
               <Box>
                 <FormLabel htmlFor="funcao">Função</FormLabel>
                 <Select placeholder="Selecionar">
                   <option>PUXAR DO BANCO DE DADOS</option>
-                  <Input id="funcao"/> {/* PUXAR DO BANCO DE DADOS */} 
+                  <Input id="funcao" /> {/* PUXAR DO BANCO DE DADOS */}
                 </Select>
               </Box>
               <Box>
                 <FormLabel htmlFor="alojado">Alojado</FormLabel>
                 <Select placeholder="Escolher">
-                  <Input id="alojado"/>
+                  <Input id="alojado" />
                 </Select>
               </Box>
               <Box>
@@ -383,20 +372,18 @@ function App() {
                 <Select placeholder="Escolher">
                   <option>Sim</option>
                   <option>Não</option>
-                  <Input id="pcd"/>
+                  <Input id="pcd" />
                 </Select>
               </Box>
             </HStack>
-
             ANEXOS
             <Divider orientation="horizontal" />
-
             <HStack justify="center">
               <Button
                 w={240}
                 p="6"
                 type="submit"
-                bg="teal.600"
+                bg="#1e3552"
                 color="white"
                 fontWeight="bold"
                 fontSize="xl"
