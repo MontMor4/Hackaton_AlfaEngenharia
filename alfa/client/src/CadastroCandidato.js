@@ -19,11 +19,8 @@ import {
   Text,
   Stack,
   AbsoluteCenter,
-<<<<<<< HEAD
-=======
   Textarea,
 
->>>>>>> fd881007bf7aef8a0b19faf3185ee9e0267ec29d
 } from "@chakra-ui/react";
 function App() {
   const [funcoes, setFuncoes] = useState([]);
@@ -417,7 +414,7 @@ function App() {
                 color="white"
                 fontWeight="bold"
                 fontSize="xl"
-                mt="2"
+                mt="2"q
                 _hover={{ bg: "teal.800" }}
               >
                 Enviar
