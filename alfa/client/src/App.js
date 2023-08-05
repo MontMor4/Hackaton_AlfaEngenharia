@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Axios from "axios";
 import { useState, useEffect } from "react";
@@ -19,7 +18,6 @@ import {
   Text,
   Stack,
   AbsoluteCenter,
-  Textarea,
 } from "@chakra-ui/react";
 function App() {
   const [funcoes, setFuncoes] = useState([]);
