@@ -1,0 +1,72 @@
+
+CREATE DATABASE portal_externo;
+USE portal_externocodigodescricao;
+
+CREATE TABLE candidato (
+    candidatoid             INT NOT NULL,
+    nomecandidato           VARCHAR(255) NOT NULL,
+    nomemae                 VARCHAR(255) NOT NULL,
+    nomepai                 VARCHAR(255) NOT NULL,
+    sexo                    VARCHAR(10) NOT NULL,
+    EstadoCivil             VARCHAR(20) NOT NULL,
+    GrauDeInstrução         VARCHAR(50) NOT NULL,
+    racacor                 VARCHAR(50) NOT NULL,
+    cep                     INT NOT NULL,
+    pais                    VARCHAR(50),
+    estado                  VARCHAR(50) NOT NULL,
+    cidade                  VARCHAR(100) NOT NULL,
+    bairro                  VARCHAR(100) NOT NULL,
+    tipologadouro           VARCHAR(50) NOT NULL,
+    enderecoresidencial     VARCHAR(255) NOT NULL,
+    numero                  VARCHAR(20),
+    complementoendereco     VARCHAR(255),
+    rg                      INT NOT NULL,
+    orgaoemissor            VARCHAR(100),
+    cidadeemissaorg         VARCHAR(100) NOT NULL,
+    dataexpedicao           DATE,
+    cpf                     INT NOT NULL,
+    tamanhobotina           INT NOT NULL,
+    tamanhocalca            VARCHAR(10) NOT NULL,
+    tamanhocamisa           VARCHAR(10) NOT NULL,
+    datanascimentocandidato DATE NOT NULL,
+    nacionalidade           VARCHAR(50) NOT NULL,
+    paisnascimento          VARCHAR(50) NOT NULL,
+    estadonascimento        VARCHAR(50),
+    cidadenascimento        VARCHAR(100),
+    telefone1               INT NOT NULL,
+    telefone2               INT,
+    email                   VARCHAR(255) NOT NULL
+);
+
+ALTER TABLE candidato ADD CONSTRAINT candidato_pk PRIMARY KEY (candidatoid);
+
+CREATE TABLE funcao (
+    codigo    INT NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    cbo       INT NOT NULL
+);
+
+ALTER TABLE funcao ADD CONSTRAINT funcao_pk PRIMARY KEY (codigo);
+
+CREATE TABLE outros (
+    codigofunc  INT NOT NULL,
+    candidatoid INT NOT NULL,
+    funcao      VARCHAR(255) NOT NULL,
+    alojado     VARCHAR(10) NOT NULL,
+    pcd         VARCHAR(10) NOT NULL
+);
+
+ALTER TABLE outros ADD CONSTRAINT outros_pk PRIMARY KEY (candidatoid, codigofunc);
+
+ALTER TABLE outros
+    ADD CONSTRAINT outros_candidato_fk FOREIGN KEY (candidatoid)
+        REFERENCES candidato (candidatoid);
+
+ALTER TABLE outros
+    ADD CONSTRAINT outros_funcao_fk FOREIGN KEY (codigofunc)
+        REFERENCES funcao (codigo);
+        
+        
+select * from funcao;
+
+
