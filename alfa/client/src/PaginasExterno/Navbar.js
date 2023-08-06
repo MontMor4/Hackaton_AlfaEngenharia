@@ -301,14 +301,14 @@ const WithSubnavigation = () => {
       </Collapse>
     </Box>
 
-    <Switch>
+    {/* <Switch>
       <Route path="/">
         <Home/>
       </Route>
       <Route path="/CadastrarReport">
         <CadastrarReport/>
       </Route>
-    </Switch>
+    </Switch> */}
     </Router>
 
   );

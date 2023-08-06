@@ -2,10 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 //import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import "./index.css";
-import CadastroCandidatos from "./Pages/CadastroCandidatos";
-import CadastrarReport from "./Pages/CadastrarReport";
-import Home from "./Pages/Home";
-import Login from "./Pages/Login";
+import CadastroCandidatos from "./PaginasExterno/CadastroCandidatos";
+import CadastrarReport from "./PaginasExterno/CadastrarReport";
+import Home from "./PaginasExterno/Home";
+import Login from "./PaginasExterno/Login";
+import NavbarInt from "./PaginasInterno/NavbarInt";
+import Candidatos from "./PaginasInterno/Candidatos";
+import Equipamentos from "./PaginasInterno/Equipamentos";
+import Reports from "./PaginasInterno/Reports";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -13,7 +17,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ChakraProvider>
     <React.StrictMode>
-      <Home />
+      <NavbarInt/>
+      <Reports/>
     </React.StrictMode>
   </ChakraProvider>
 );
