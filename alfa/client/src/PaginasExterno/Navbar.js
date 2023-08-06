@@ -261,7 +261,7 @@ const WithSubnavigation = () => {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            href={"#"}
+            href={"/Login"}
           >
             Entrar
           </Button>
@@ -272,7 +272,7 @@ const WithSubnavigation = () => {
             fontWeight={600}
             color={"white"}
             bg={"#1e3552"}
-            href={"#"}
+            href={"/Login"}
             _hover={{
               bg: "#1e3552",
             }}

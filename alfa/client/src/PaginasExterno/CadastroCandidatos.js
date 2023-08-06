@@ -400,7 +400,10 @@ function CadastroCandidatos() {
                   />
                 </Select>
               </Box>
-              <Box w="100%">
+              
+            </HStack>
+            <HStack>
+            <Box w="100%">
                 <FormLabel htmlFor="paisnascimento">
                   País de Nascimento
                 </FormLabel>

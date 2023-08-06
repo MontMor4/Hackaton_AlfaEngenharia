@@ -59,6 +59,7 @@ export default function SimpleCard() {
                 _hover={{
                   bg: "#1e3552",
                 }}
+                href="http://localhost:3000/Candidatos"
               >
                 Entrar
               </Button>
