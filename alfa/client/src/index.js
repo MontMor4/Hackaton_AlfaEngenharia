@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import CadastroCandidatos from "./CadastroCandidatos";
+import CadastrarReport from "./CadastrarReport";
+import Home from "./Home";
+import Login from "./Login";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -9,7 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ChakraProvider>
     <React.StrictMode>
-      <App />
+      <CadastrarReport />
     </React.StrictMode>
   </ChakraProvider>
 );
