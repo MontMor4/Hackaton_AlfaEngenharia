@@ -1,4 +1,4 @@
-import "./App.css";
+import "../App.css";
 import Axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import {
