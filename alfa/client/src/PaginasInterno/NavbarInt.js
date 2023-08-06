@@ -33,7 +33,7 @@ const NavLink = (props) => {
         textDecoration: 'none',
         bg: useColorModeValue('gray.200', 'gray.700'),
       }}
-      href={'#'}
+      href={'/Candidatos'}
     >
       {children}
     </Box>
@@ -67,7 +67,7 @@ function WithAction() {
             />
             <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} >{link}</NavLink>
               ))}
             </HStack>
           </HStack>

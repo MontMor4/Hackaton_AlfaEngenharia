@@ -3,7 +3,6 @@ import logo from "../imgs/logo.png";
 import Home from "./Home";
 import CadastrarReport from "./CadastrarReport";
 import { useBreakpointValue } from "@chakra-ui/react";
-import {BrowserRouter as Router, Switch , Route, Link} from 'react-router-dom';
 import {
   Box,
   Flex,
@@ -35,23 +34,11 @@ const WithSubnavigation = () => {
   const NAV_ITEMS = [
     {
       label: "Cadidatar",
-      href: "/CadastrarCandidatos",
+      href: "/CadastroCandidatos",
     },
     {
       label: "Reportar bug",
       href: "/CadastrarReport",
-      children: [
-        {
-          label: "Job Board",
-          subLabel: "Find your dream design job",
-          href: "#",
-        },
-        {
-          label: "Freelance Projects",
-          subLabel: "An exclusive list for contract work",
-          href: "#",
-        },
-      ],
     },
     {
       label: "Saiba mais!",
@@ -214,7 +201,6 @@ const WithSubnavigation = () => {
   };
 
   return (
-    <Router>
       <Box>
       <Flex
         bg={useColorModeValue("white", "gray.800")}
@@ -300,17 +286,6 @@ const WithSubnavigation = () => {
         <MobileNav />
       </Collapse>
     </Box>
-
-    {/* <Switch>
-      <Route path="/">
-        <Home/>
-      </Route>
-      <Route path="/CadastrarReport">
-        <CadastrarReport/>
-      </Route>
-    </Switch> */}
-    </Router>
-
   );
 };
 

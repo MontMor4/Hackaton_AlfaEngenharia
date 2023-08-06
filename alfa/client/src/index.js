@@ -13,11 +13,47 @@ import Reports from "./PaginasInterno/Reports";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/CadastroCandidatos",
+    element: <CadastroCandidatos/>,
+  },
+  {
+    path: "/CadastrarReport",
+    element: <CadastrarReport/>,
+  },
+  {
+    path: "/Login",
+    element: <Login/>,
+  },
+  {
+    path: "/Candidatos",
+    element: <Candidatos/>,
+  },
+  {
+    path: "/Reports",
+    element: <Reports/>,
+  },
+  {
+    path: "/Equipamentos",
+    element: <Equipamentos/>,
+  },
+]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ChakraProvider>
     <React.StrictMode>
-      <Home/>
+      <RouterProvider router ={router}/>
     </React.StrictMode>
   </ChakraProvider>
 );

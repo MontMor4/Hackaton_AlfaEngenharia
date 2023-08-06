@@ -8,6 +8,8 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from '@chakra-ui/react';
+import NavbarInt from "./NavbarInt";
+
 
 const testimonials = [
     {
@@ -115,6 +117,8 @@ function TestimonialCard(props) {
 
 function GridBlurredBackdrop() {
   return (
+    <Box>
+        <NavbarInt/>
     <Flex
       textAlign={'center'}
       pt={10}
@@ -154,6 +158,7 @@ function GridBlurredBackdrop() {
         </Icon>
       </Box>
     </Flex>
+    </Box>
   );
 }
 

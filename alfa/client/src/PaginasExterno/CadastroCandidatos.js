@@ -19,7 +19,7 @@ import {
   Stack,
   AbsoluteCenter,
 } from "@chakra-ui/react";
-function App() {
+function CadastroCandidatos() {
   const fileInputRG = useRef(null);
   const fileInputCPF = useRef(null);
   const fileInputCurriculo = useRef(null);
@@ -834,4 +834,4 @@ function App() {
   );
 }
 
-export default App;
+export default CadastroCandidatos;

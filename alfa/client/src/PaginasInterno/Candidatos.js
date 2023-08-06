@@ -12,6 +12,8 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FaCheckCircle } from 'react-icons/fa';
+import NavbarInt from "./NavbarInt";
+import WithAction from './NavbarInt';
 
 const options = [
   { id: 1, desc: 'teste' },
@@ -64,7 +66,10 @@ const PackageTier = ({ title, options, typePlan, checked = false }) => {
 
 const ThreeTierPricingHorizontal = () => {
   return (
+    <Box>
+    <NavbarInt/>
     <Box py={6} px={5} width="full">
+        
       <Stack spacing={4} width={'100%'} direction={'column'}>
         <Stack
           p={5}
@@ -107,6 +112,7 @@ const ThreeTierPricingHorizontal = () => {
         <Divider />
         <PackageTier title={'Victor Mor'} typePlan="FullStack" options={options} />
       </Stack>
+    </Box>
     </Box>
   );
 };

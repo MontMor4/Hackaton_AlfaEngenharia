@@ -20,6 +20,7 @@ import {
     position,
   } from "@chakra-ui/react";
   import { useEffect, useState } from "react";
+  import NavbarInt from "./NavbarInt";
   import axios from "axios";
   
   function CadastrarReport() {
@@ -43,6 +44,7 @@ import {
 
     return (
       <Box h="100vh">
+        <NavbarInt/>
         <Center
           as="header"
           h={150}
@@ -70,8 +72,7 @@ import {
             p="6"
             boxShadow="0 1px 2px #ccc"
           >
-            <form onSubmit={sendMsg}>
-            <FormControl display="flex" flexDir="column" gap="4" >
+            <FormControl display="flex" flexDir="column" gap="4"  >
             <Box position="relative" padding="10">
                 <Divider />
                 <AbsoluteCenter bg="white" px="4">
@@ -111,7 +112,7 @@ import {
               <input type="file" />
   
               <HStack justify="center">
-                <Button
+                {/* <Button
                   w={240}
                   p="6"
                   type="submit"
@@ -121,13 +122,14 @@ import {
                   fontSize="xl"
                   mt="2"
                   _hover={{ bg: "teal.800" }}
+                  onClick{sendMsg}
                 >
                   Enviar
-                </Button>
+                </Button> */}
+
+                <button onClick={sendMsg}>Teste</button>
               </HStack>
             </FormControl>
-            </form>
-              
           </Center>
         </Flex>
       </Box>
