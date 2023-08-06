@@ -23,19 +23,24 @@ import {
   import axios from "axios";
   
   function CadastrarReport() {
-    const [latitude, setLatitude] = useState("");
-    const [longitude, setLongitude] = useState("");
-    useEffect(() => {
-      axios.get("http://localhost:3000/").then((res) => {
-        console.log(res.data);
-      });
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords);
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      });
-    }, []);
-  
+
+    const [data, setData] = useState({
+        codigoArea:'',
+        statusLiberacao:'',
+        descricao:'',
+        anexos:''
+    });
+
+    const valorInput = e => setData({...data, [e.target.id]: e.target.value})
+
+    const sendMsg = (e) => {
+        e.preventDefault();
+        console.log(`Nome: ${data.codigoArea}`);
+        console.log(`Status: ${data.statusLiberacao}`);
+        console.log(`Descricao: ${data.descricao}`);
+        console.log(`Anexos: ${data.anexos}`);
+    }
+
     return (
       <Box h="100vh">
         <Center
@@ -65,16 +70,9 @@ import {
             p="6"
             boxShadow="0 1px 2px #ccc"
           >
-            <FormControl display="flex" flexDir="column" gap="4">
-              {/*}
-              <FormControl display='flex' alignItems='center'>
-                  <FormLabel htmlFor='email-alerts' mb='0'>
-                      Feedback anônimo?
-                  </FormLabel>
-                  <Switch id='email-alerts' />
-              </FormControl>
-              */}
-              <Box position="relative" padding="10">
+            <form onSubmit={sendMsg}>
+            <FormControl display="flex" flexDir="column" gap="4" >
+            <Box position="relative" padding="10">
                 <Divider />
                 <AbsoluteCenter bg="white" px="4">
                   <Heading as="h2" size="lg">
@@ -86,19 +84,18 @@ import {
               <HStack spacing="4">
                 <Box w="100%">
                   <FormLabel htmlFor="codigoArea">Código da Área</FormLabel>
-                    <Input id="codigoArea" />
+                    <Input id="codigoArea" onChange={valorInput}/>
                 </Box>
                 <Box w="100%">
                   <FormLabel htmlFor="statusLiberacao">Status de Liberação</FormLabel>
-                  <Select placeholder="Selecionar">
+                  <Select placeholder="Selecionar" id="statusLiberacao" onChange={valorInput}>
                     <option>Sim</option>
                     <option>Não</option>
-                    <Input id="statusLiberacao" />
                   </Select>
                 </Box>
               </HStack>
-  
-              <Textarea placeholder="Descrição da área ou equipamento aqui..." />
+              
+              <Textarea placeholder="Descrição da área ou equipamento aqui..." id="descricao" onChange={valorInput}/>
   
               <Box position="relative" padding="10">
                 <Divider />
@@ -129,6 +126,8 @@ import {
                 </Button>
               </HStack>
             </FormControl>
+            </form>
+              
           </Center>
         </Flex>
       </Box>
