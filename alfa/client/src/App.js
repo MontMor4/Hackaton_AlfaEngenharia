@@ -1,6 +1,6 @@
 import "./App.css";
 import Axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Flex,
   Box,
@@ -9,7 +9,6 @@ import {
   Input,
   FormLabel,
   HStack,
-  RadioGroup,
   Radio,
   Button,
   ButtonGroup,
@@ -19,14 +18,185 @@ import {
   Text,
   Stack,
   AbsoluteCenter,
-<<<<<<< HEAD
-=======
-  Textarea,
-
->>>>>>> fd881007bf7aef8a0b19faf3185ee9e0267ec29d
 } from "@chakra-ui/react";
 function App() {
+  const fileInputRG = useRef(null);
+  const fileInputCPF = useRef(null);
+  const fileInputCurriculo = useRef(null);
+  const fileInputCNH = useRef(null);
+  const fileInputReservista = useRef(null);
+
+  const readFileAsBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+
   const [funcoes, setFuncoes] = useState([]);
+  const [userData, setUserData] = useState({
+    nomecandidato: "",
+    nomemae: "",
+    nomepai: "",
+    GrauDeInstrucao: "",
+    racacor: "",
+    sexo: "",
+    EstadoCivil: "",
+    datanascimentocandidato: "",
+    nacionalidade: "",
+    paisnascimento: "",
+    estadonascimento: "",
+    cidadenascimento: "",
+    tamanhobotina: "",
+    tamanhocalca: "",
+    tamanhocamisa: "",
+    telefone1: "",
+    telefone2: "",
+    email: "",
+    cep: "",
+    paisnascimento: "",
+    estado: "",
+    cidade: "",
+    bairro: "",
+    tipologadouro: "",
+    enderecoresidencial: "",
+    numero: "",
+    complementoendereco: "",
+    rg: "",
+    orgaoemissor: "",
+    estadoemissor: "",
+    cidadeemissaorg: "",
+    dataexpedicao: "",
+    cpf: "",
+    pispasep: "",
+    funcao: "",
+    alojado: "",
+    pcd: "",
+  });
+
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setUserData((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const [selecionadas, setSelecionadas] = useState([]);
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const renderOptions = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return funcoes.slice(startIndex, endIndex).map((funcao) => (
+      <div key={funcao.codigo}>
+        <input
+          type="checkbox"
+          id={`funcao-${funcao.codigo}`}
+          name="funcao"
+          value={funcao.codigo}
+          checked={selecionadas.includes(String(funcao.codigo))}
+          onChange={handleCheckboxChange}
+        />
+        <label htmlFor={`funcao-${funcao.codigo}`}>{funcao.descricao}</label>
+      </div>
+    ));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  // Função para voltar para a página anterior
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  // Verifica se há opções suficientes para exibir a próxima página
+  const hasNextPage = currentPage * itemsPerPage < funcoes.length;
+
+  // Verifica se é possível voltar para a página anterior
+  const hasPrevPage = currentPage > 1;
+
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setSelecionadas((prevSelecionadas) => [...prevSelecionadas, value]);
+    } else {
+      setSelecionadas((prevSelecionadas) =>
+        prevSelecionadas.filter((item) => item !== value)
+      );
+    }
+  };
+
+  const handleSubmitFiles = async (event) => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData();
+
+      if (true) {
+        let toBase64;
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        toBase64 = (file) =>
+          new Promise((resolve, reject) => {
+            reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+          });
+        console.log(await toBase64(file));
+      }
+
+      // if (fileInputCPF.files[0]) {
+      //   const cpfBase64 = await readFileAsBase64(fileInputCPF.files[0]);
+      //   formData.append("cpfFile", cpfBase64);
+      // }
+
+      // if (fileInputCurriculo.files[0]) {
+      //   const curriculoBase64 = await readFileAsBase64(
+      //     fileInputCurriculo.files[0]
+      //   );
+      //   formData.append("curriculoFile", curriculoBase64);
+      // }
+
+      // if (fileInputCNH.files[0]) {
+      //   const cnhBase64 = await readFileAsBase64(fileInputCNH.files[0]);
+      //   formData.append("cnhFile", cnhBase64);
+      // }
+
+      // if (fileInputReservista.files[0]) {
+      //   const reservistaBase64 = await readFileAsBase64(
+      //     fileInputReservista.files[0]
+      //   );
+      //   formData.append("reservistaFile", reservistaBase64);
+      // }
+
+      await Axios.post("http://localhost:3001/upload-files", formData);
+      console.log("Files uploaded successfully");
+      // Handle the successful file upload, e.g., show a success message to the user
+    } catch (error) {
+      console.error(error);
+      // Handle the error, e.g., show an error message to the user
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    Axios.post("http://localhost:3001/cadastrar-candidato", userData)
+      .then((response) => {
+        console.log("Usuário criado com sucesso");
+
+        // Faça o tratamento adicional necessário após a criação do usuário
+      })
+      .catch((error) => {
+        console.error("Erro ao criar usuário", error);
+        // Faça o tratamento de erro necessário
+      });
+  };
 
   useEffect(() => {
     // Faz a requisição GET para o servidor backend
@@ -34,7 +204,7 @@ function App() {
       .then((response) => {
         // Atualiza o estado com os dados recebidos do backend
         setFuncoes(response.data);
-        console.log(funcoes);
+        //console.log(funcoes);
       })
       .catch((error) => {
         console.log(error);
@@ -80,28 +250,47 @@ function App() {
             </Box>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="nome">
+                <FormLabel htmlFor="nomecandidato">
                   Nome Completo do Candidato:
                 </FormLabel>
-                <Input id="nome" />
+                <Input
+                  id="nomecandidato"
+                  onChange={handleChange}
+                  value={userData.nomecandidato}
+                />
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="nomeMae">Nome Completo da Mãe:</FormLabel>
-                <Input id="nomeMae" />
+                <FormLabel htmlFor="nomemae">Nome Completo da Mãe:</FormLabel>
+                <Input
+                  id="nomemae"
+                  onChange={handleChange}
+                  value={userData.nomemae}
+                />
               </Box>
             </HStack>
             <HStack>
               <Box w="100%">
-                <FormLabel htmlFor="nomePai">Nome Completo do Pai:</FormLabel>
-                <Input id="nomePai" />
+                <FormLabel htmlFor="nomepai">Nome Completo do Pai:</FormLabel>
+                <Input
+                  id="nomepai"
+                  onChange={handleChange}
+                  value={userData.nomepai}
+                />
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="grauInstrucao">Grau de Instrução</FormLabel>
-                <Select placeholder="Selecionar">
+                <FormLabel htmlFor="GrauDeInstrucao">
+                  Grau de Instrução
+                </FormLabel>
+                <Select
+                  placeholder="Selecionar"
+                  id="GrauDeInstrucao"
+                  value={userData.GrauDeInstrucao}
+                  onChange={handleChange}
+                >
                   <option>Médio</option>
                   <option>Superior</option>
                   <option>Pós-graduação</option>
@@ -111,36 +300,63 @@ function App() {
                 </Select>
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="racaCor">Raça/Cor</FormLabel>
-                <Select placeholder="Selecionar">
+                <FormLabel htmlFor="racacor">Raça/Cor</FormLabel>
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.racacor}
+                  onChange={handleChange}
+                  id="racacor"
+                >
                   <option>Branco</option>
                   <option>Preto</option>
                   <option>Pardo</option>
                   <option>Indígena</option>
                   <option>Amarelo</option>
-                  <Input id="racaCor" />
+                  <Input
+                    id="racacor"
+                    onChange={handleChange}
+                    value={userData.racacor}
+                  />
                 </Select>
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="sexo">Sexo</FormLabel>
-                <Select placeholder="Selecionar">
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.sexo}
+                  onChange={handleChange}
+                  id="sexo"
+                >
                   <option>Masculino</option>
                   <option>Feminino</option>
                   <option>Prefiro não dizer</option>
-                  <Input id="sexo" />
+                  <Input
+                    id="sexo"
+                    onChange={handleChange}
+                    value={userData.sexo}
+                  />
                 </Select>
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="estadoCivil">Estado Civil</FormLabel>
-                <Select placeholder="Selecionar">
+                <FormLabel htmlFor="EstadoCivil">Estado Civil</FormLabel>
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.EstadoCivil}
+                  onChange={handleChange}
+                  id="EstadoCivil"
+                >
                   <option>Solteiro</option>
                   <option>Casado</option>
                   <option>Separado</option>
                   <option>Divorciado</option>
                   <option>Viúvo</option>
-                  <Input id="estadoCivil" />
+                  <Input
+                    id="estadoCivil"
+                    onChange={handleChange}
+                    value={userData.estadoCivil}
+                  />
                 </Select>
               </Box>
             </HStack>
@@ -154,48 +370,79 @@ function App() {
             </Box>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="dataNascimento">
+                <FormLabel htmlFor="datanascimentocandidato">
                   Data de Nascimento
                 </FormLabel>
-                <Input id="dataNascimento" type="date" />
+                <Input
+                  id="datanascimentocandidato"
+                  type="date"
+                  onChange={handleChange}
+                  value={userData.datanascimentocandidato}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="nacionalidade">Nacionalidade</FormLabel>
-                <Select placeholder="Selecionar">
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.nacionalidade}
+                  onChange={handleChange}
+                  id="nacionalidade"
+                >
                   <option>Brasileiro</option>
                   <option>Canadense</option>
                   <option>Dinamarquês</option>
                   <option>Alemão</option>
                   <option>Chinês</option>
-                  <Input id="estadoCivil" />
+                  <Input
+                    id="nacionalidade"
+                    onChange={handleChange}
+                    value={userData.nacionalidade}
+                  />
                 </Select>
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="paisNascimento">
+                <FormLabel htmlFor="paisnascimento">
                   País de Nascimento
                 </FormLabel>
-                <Select placeholder="Selecionar">
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.paisnascimento}
+                  onChange={handleChange}
+                  id="paisnascimento"
+                >
                   <option>Brasil</option>
                   <option>Canadá</option>
                   <option>Dinamarca</option>
                   <option>Alemanha</option>
                   <option>China</option>
-                  <Input id="paisNascimento" />
+                  <Input
+                    id="paisNascimento"
+                    onChange={handleChange}
+                    value={userData.paisNascimento}
+                  />
                 </Select>
               </Box>
             </HStack>
             <HStack>
               <Box w="100%">
-                <FormLabel htmlFor="estadoNascimento">
+                <FormLabel htmlFor="estadonascimento">
                   Estado Nascimento
                 </FormLabel>
-                <Input id="estadoNascimento" />
+                <Input
+                  id="estadonascimento"
+                  onChange={handleChange}
+                  value={userData.estadonascimento}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="cidadeNascimento">
+                <FormLabel htmlFor="cidadenascimento">
                   Cidade Nascimento
                 </FormLabel>
-                <Input id="cidadeNascimento" />
+                <Input
+                  id="cidadenascimento"
+                  onChange={handleChange}
+                  value={userData.cidadenascimento}
+                />
               </Box>
             </HStack>
             <Box position="relative" padding="10">
@@ -208,16 +455,31 @@ function App() {
             </Box>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="numeroBota">Número Bota</FormLabel>
-                <Input placeholder="Ex: 38" id="numeroBota" />
+                <FormLabel htmlFor="tamanhobotina">Número Bota</FormLabel>
+                <Input
+                  placeholder="Ex: 38"
+                  id="tamanhobotina"
+                  onChange={handleChange}
+                  value={userData.tamanhobotina}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="numeroCalca">Número Calça</FormLabel>
-                <Input placeholder="Ex: 41" id="numeroCalca" />
+                <FormLabel htmlFor="tamanhocalca">Número Calça</FormLabel>
+                <Input
+                  placeholder="Ex: 41"
+                  id="tamanhocalca"
+                  onChange={handleChange}
+                  value={userData.tamanhocalca}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="numeroBlusa">Tamanho Blusa</FormLabel>
-                <Input placeholder="Ex: G" id="numeroBlusa" />
+                <FormLabel htmlFor="tamanhocamisa">Tamanho Blusa</FormLabel>
+                <Input
+                  placeholder="Ex: G"
+                  id="tamanhocamisa"
+                  onChange={handleChange}
+                  value={userData.tamanhocamisa}
+                />
               </Box>
             </HStack>
             <Box position="relative" padding="10">
@@ -230,16 +492,31 @@ function App() {
             </Box>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="telefone">Telefone</FormLabel>
-                <Input placeholder="(99) 99999-9999" id="telefone" />
+                <FormLabel htmlFor="telefone1">Telefone</FormLabel>
+                <Input
+                  placeholder="(99) 99999-9999"
+                  id="telefone1"
+                  onChange={handleChange}
+                  value={userData.telefone1}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="telefone2">Telefone 2</FormLabel>
-                <Input placeholder="(99) 99999-9999" id="telefone2" />
+                <Input
+                  placeholder="(99) 99999-9999"
+                  id="telefone2"
+                  onChange={handleChange}
+                  value={userData.telefone2}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="email">Email</FormLabel>
-                <Input placeholder="email@email.com" id="email" />
+                <Input
+                  placeholder="email@email.com"
+                  id="email"
+                  onChange={handleChange}
+                  value={userData.email}
+                />
               </Box>
             </HStack>
             <Box position="relative" padding="10">
@@ -253,55 +530,97 @@ function App() {
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="cep">CEP</FormLabel>
-                <Input placeholder="Ex: 12345678" id="cep" />
+                <Input
+                  placeholder="Ex: 12345678"
+                  id="cep"
+                  onChange={handleChange}
+                  value={userData.cep}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="pais">País</FormLabel>
-                <Input id="pais" />
+                <Input
+                  id="pais"
+                  onChange={handleChange}
+                  value={userData.pais}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="estado">Estado</FormLabel>
-                <Input id="estado" />
+                <Input
+                  id="estado"
+                  onChange={handleChange}
+                  value={userData.estado}
+                />
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="cidade">Cidade</FormLabel>
-                <Input id="cidade" />
+                <Input
+                  id="cidade"
+                  onChange={handleChange}
+                  value={userData.cidade}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="bairro">Bairro</FormLabel>
-                <Input id="bairro" />
+                <Input
+                  id="bairro"
+                  onChange={handleChange}
+                  value={userData.bairro}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="tipoLogradouro">
+                <FormLabel htmlFor="tipologadouro">
                   Tipo de Logradouro
                 </FormLabel>
-                <Select placeholder="Selecionar">
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.tipologadouro}
+                  onChange={handleChange}
+                  id="tipologadouro"
+                >
                   <option>Avenida</option>
                   <option>Alameda</option>
                   <option>Condomínio</option>
                   <option>Campo</option>
-                  <Input id="tipoLogradouro" />
+                  <Input
+                    id="tipologadouro"
+                    onChange={handleChange}
+                    value={userData.tipologadouro}
+                  />
                 </Select>
               </Box>
             </HStack>
             <HStack>
               <Box w="100%">
-                <FormLabel htmlFor="enderecoResidencial">
+                <FormLabel htmlFor="enderecoresidencial">
                   Endereço Residencial
                 </FormLabel>
-                <Input id="enderecoResidencial" />
+                <Input
+                  id="enderecoresidencial"
+                  onChange={handleChange}
+                  value={userData.enderecoresidencial}
+                />
               </Box>
             </HStack>
             <HStack>
               <Box w="100%">
                 <FormLabel htmlFor="numero">Número</FormLabel>
-                <Input id="numero" />
+                <Input
+                  id="numero"
+                  onChange={handleChange}
+                  value={userData.numero}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="complemento">Complemento</FormLabel>
-                <Input id="complemento" />
+                <FormLabel htmlFor="complementoendereco">Complemento</FormLabel>
+                <Input
+                  id="complementoendereco"
+                  onChange={handleChange}
+                  value={userData.complementoendereco}
+                />
               </Box>
             </HStack>
             <Box position="relative" padding="10">
@@ -315,47 +634,89 @@ function App() {
             <HStack spacing="4">
               <Box w="100%">
                 <FormLabel htmlFor="rg">RG</FormLabel>
-                <Input id="rg" type="number" />
+                <Input
+                  id="rg"
+                  type="number"
+                  onChange={handleChange}
+                  value={userData.rg}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="orgaoEmissor">Órgão Emissor</FormLabel>
-                <Input id="orgaoEmissor" />
+                <FormLabel htmlFor="orgaoemissor">Órgão Emissor</FormLabel>
+                <Input
+                  id="orgaoemissor"
+                  onChange={handleChange}
+                  value={userData.orgaoemissor}
+                />
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="estadoEmissor">Estado Emissor</FormLabel>
-                <Select placeholder="Selecionar">
+                <FormLabel htmlFor="estadoesmissor">Estado Emissor</FormLabel>
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.estadoesmissor}
+                  onChange={handleChange}
+                  id="estadoesmissor"
+                >
                   <option>ES</option>
                   <option>RJ</option>
                   <option>SP</option>
                   <option>MG</option>
-                  <Input id="estadoEmissor" />
+                  <Input
+                    id="estadoesmissor"
+                    onChange={handleChange}
+                    value={userData.estadoesmissor}
+                  />
                 </Select>
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box w="100%">
-                <FormLabel htmlFor="cidadeEmissora">Cidade Emissora</FormLabel>
-                <Select placeholder="Selecionar">
+                <FormLabel htmlFor="cidadeemissaorg">Cidade Emissora</FormLabel>
+                <Select
+                  placeholder="Selecionar"
+                  value={userData.cidadeemissaorg}
+                  onChange={handleChange}
+                  id="cidadeemissaorg"
+                >
                   <option>Belo Horizonte</option>
                   <option>Rio de Janeiro</option>
                   <option>São Paulo</option>
                   <option>Vitória</option>
-                  <Input id="cidadeEmissora" />
+                  <Input
+                    id="cidadeemissaorg"
+                    onChange={handleChange}
+                    value={userData.cidadeemissaorg}
+                  />
                 </Select>
               </Box>
               <Box w="100%">
-                <FormLabel htmlFor="dataExpedicao">Data de Expedição</FormLabel>
-                <Input id="cidadeEmissora" type="date" />
+                <FormLabel htmlFor="dataexpedicao">Data de Expedição</FormLabel>
+                <Input
+                  id="dataexpedicao"
+                  type="date"
+                  onChange={handleChange}
+                  value={userData.dataexpedicao}
+                />
               </Box>
               <Box w="100%">
                 <FormLabel htmlFor="cpf">CPF</FormLabel>
-                <Input id="cpf" type="number" />
+                <Input
+                  id="cpf"
+                  type="number"
+                  onChange={handleChange}
+                  value={userData.cpf}
+                />
               </Box>
             </HStack>
             <HStack spacing="4">
               <Box>
                 <FormLabel htmlFor="pisPasep">PIS/PASEP</FormLabel>
-                <Input id="pisPasep" type="number" />
+                <Input
+                  id="pisPasep"
+                  type="number"
+                  onChange={handleChange}
+                  value={userData.pisPasep}
+                />
               </Box>
             </HStack>
             <Box position="relative" padding="10">
@@ -368,7 +729,7 @@ function App() {
             </Box>
             <HStack spacing="4">
               <Box>
-                <FormLabel htmlFor="funcao">Função</FormLabel>
+                <FormLabel htmlFor="funcao">Função Principal</FormLabel>
                 <select id="funcao">
                   <option value="">Selecionar</option>
                   {funcoes.map((funcao, index) => (
@@ -378,6 +739,20 @@ function App() {
                   ))}
                 </select>
               </Box>
+            </HStack>
+            <HStack spacing="4">
+              <Box>
+                <FormLabel htmlFor="funcao">Funções Secundárias</FormLabel>
+                {renderOptions()}
+                <Button onClick={handlePrevPage} disabled={!hasPrevPage}>
+                  Página Anterior
+                </Button>
+                <Button onClick={handleNextPage} disabled={!hasNextPage}>
+                  Próxima Página
+                </Button>
+              </Box>
+            </HStack>
+            <HStack>
               <Box>
                 <FormLabel htmlFor="alojado">Alojado</FormLabel>
                 <Select placeholder="Escolher">
@@ -401,15 +776,44 @@ function App() {
                 </Heading>
               </AbsoluteCenter>
             </Box>
-            <input type="file"/>
-            <input type="file"/>
-            <input type="file"/>
-            
-            <Button colorScheme='blue'>Button</Button>
+
+            <label for="fileInputRG">RG:</label>
+            <input onChange={handleSubmitFiles} type="file" ref={fileInputRG} />
+
+            <label for="fileInputCPF">CPF:</label>
+            <input
+              onChange={handleSubmitFiles}
+              type="file"
+              ref={fileInputCPF}
+            />
+
+            <label for="fileInputCurriculo">Currículo:</label>
+            <input
+              onChange={handleSubmitFiles}
+              type="file"
+              ref={fileInputCurriculo}
+            />
+
+            <label for="fileInputCNH">CNH:</label>
+            <input
+              onChange={handleSubmitFiles}
+              type="file"
+              ref={fileInputCNH}
+            />
+
+            <label for="fileInputReservista">Certificado de Reservista:</label>
+            <input
+              onChange={handleSubmitFiles}
+              type="file"
+              ref={fileInputReservista}
+            />
+
+            <Button colorScheme="blue">Button</Button>
 
             <Divider orientation="horizontal" />
             <HStack justify="center">
               <Button
+                onClick={handleSubmit}
                 w={240}
                 p="6"
                 type="submit"
